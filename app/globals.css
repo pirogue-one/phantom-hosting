@@ -2,9 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+@font-face {
+  font-family: 'Franklin Gotic';
+  src: url('../app/fonts/franklingothicno_2cyr_roman.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
 }
+
+html, body {
+  font-family: 'Franklin Gotic', 'Verdana', sans-serif;
+}
+
 
 @layer utilities {
   .text-balance {
@@ -80,6 +88,17 @@ body {
 a {
   text-decoration: none;
 }
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.phantom-title {
+  font-size: 32px;
+  line-height: 34px;
+  text-align: center;
+}
 
 /* HEADER COMPONENT */
 header.header {
@@ -91,11 +110,9 @@ header.header {
   border-bottom: 2px solid #bebebe;
   position: relative;
 }
-
 .logo {
   width: 200px;
 }
-
 .tor-icon {
   width: 46px;
   position: absolute;
@@ -103,3 +120,36 @@ header.header {
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
 }
+#langs {
+  background-color: transparent;
+  transform: translateY(8px);
+  border: none;
+}
+#langs:focus,
+#langs:active,
+#lang:focus-visible {
+  outline: none;
+}
+
+/* UPLOAD FORM COMPONENT */
+.image-settings input[type='checkbox'] {
+  transform: translateY(-1.5px);
+}
+.image-settings div {
+  flex-basis: 46%;
+}
+.image-settings input[type='number'],
+.image-settings input[type='password'] {
+  width: calc(100% - 20px);
+  margin: 0 0 0 20px;
+  padding: 4px 6px;
+  font-size: 14px;
+}
+.size-inputs input {
+  width: 46%;
+}
+.upload-files-btn {
+  margin-inline: auto;
+  display: block;
+}
+

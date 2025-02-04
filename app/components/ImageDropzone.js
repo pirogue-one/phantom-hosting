@@ -1,8 +1,9 @@
 "use client"
 
-import { useCallback } from "react"
-import { useDropzone } from "react-dropzone"
-import ImagePreview from "./ImagePreview"
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import ImagePreview from "./ImagePreview";
+import { useTranslations } from 'next-intl';
 
 export default function ImageDropzone({ images, setImages }) {
     const onDrop = useCallback(
@@ -25,12 +26,14 @@ export default function ImageDropzone({ images, setImages }) {
         setImages((prev) => prev.filter((_, i) => i !== index))
     }
 
+    const t = useTranslations('UploadForm');
+
+
     return (
         <div
             {...getRootProps()}
-            className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer ${
-                isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
-            }`}
+            className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer ${isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
+                }`}
         >
             <input {...getInputProps()} />
             {images.length > 0 ? (
@@ -40,7 +43,7 @@ export default function ImageDropzone({ images, setImages }) {
                     ))}
                 </div>
             ) : (
-                <p>{isDragActive ? "Drop the images here" : "Drag and drop images here, or click to select files"}</p>
+                <p>{isDragActive ? "Drop the images here" : t('dropzone')}</p>
             )}
         </div>
     )

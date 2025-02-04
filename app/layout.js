@@ -1,19 +1,27 @@
-import Header from "./components/Header"
-import Footer from "./components/Footer"
-import "./globals.css"
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import "./globals.css";
+import { NextIntlClientProvider } from 'next-intl';
+import { getLocale, getMessages } from 'next-intl/server';
 
 export const metadata = {
   title: "Image Hosting",
   description: "Upload and share your images",
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-grow container mx-auto px-4 py-8">{children}</main>
-        <Footer />
+        <NextIntlClientProvider messages={messages}>
+          <Header />
+          <main className="flex-grow container mx-auto px-4 py-8">{children}</main>
+          <Footer />
+        </NextIntlClientProvider>
       </body>
     </html>
   )

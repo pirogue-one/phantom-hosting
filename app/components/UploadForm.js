@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import ImageDropzone from "./ImageDropzone"
-import OptionCheckbox from "./OptionCheckbox"
-import NumericInput from "./NumericInput"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import ImageDropzone from "./ImageDropzone";
+import OptionCheckbox from "./OptionCheckbox";
+import NumericInput from "./NumericInput";
+import { useTranslations } from 'next-intl';
 
 export default function UploadForm() {
   const router = useRouter()
@@ -58,26 +59,37 @@ export default function UploadForm() {
     } catch (error) {
       router.push("/error")
     }
+
   }
+  const t = useTranslations('UploadForm');
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 border-2 rounded-lg p-6 border-gray-300 max-w-[998px]">
+      <div className="instruction flex-col items-center">
+        <p className="text-[14px] text-center">{t('instruction-1')}</p>
+        <p className="text-[14px] text-center">{t('instruction-2')}</p>
+        <p className="text-[14px] text-center">{t('instruction-3')}</p>
+        <p className="text-[14px] text-center">{t('instruction-4')}</p>
+        <p className="text-[14px] text-center">{t('instruction-5')}</p>
+
+      </div>
       <ImageDropzone images={images} setImages={setImages} />
       <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
-        className="w-full p-2 border rounded"
-        rows="4"
+        placeholder={t('descr-ph')}
+        className="w-full p-2 border-2 rounded-lg border-gray-300"
+        rows="2"
       />
-      <div className="space-y-4">
+      <div className="image-settings flex flex-wrap gap-x-10 gap-y-4">
         <OptionCheckbox
-          label="Password Protection"
+          label={t('password-l')}
           checked={options.passwordProtection}
           onChange={() => handleOptionChange("passwordProtection")}
         >
           {options.passwordProtection && (
             <input
+              placeholder={t('password-ph')}
               type="password"
               value={values.password}
               onChange={(e) => handleValueChange("password", e.target.value)}
@@ -109,7 +121,7 @@ export default function UploadForm() {
           onChange={() => handleOptionChange("changeImageSize")}
         >
           {options.changeImageSize && (
-            <div className="ml-4 space-x-2">
+            <div className="size-inputs flex gap-2">
               <NumericInput
                 value={values.width}
                 onChange={(value) => handleValueChange("width", value)}
@@ -131,7 +143,7 @@ export default function UploadForm() {
           onChange={() => handleOptionChange("createAlbum")}
         />
       </div>
-      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+      <button type="submit" className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-blue-600 upload-files-btn">
         Upload
       </button>
     </form>

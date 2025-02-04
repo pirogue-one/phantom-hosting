@@ -1,0 +1,19 @@
+{
+    "HomePage": {
+      "title-subtitle": "Anonymous photo hosting with automatic metadata cleaning"
+    },
+
+    "UploadForm": {
+      "instruction-1": "Upload images by simply dragging and dropping them anywhere in the window right now.",
+      "instruction-2": "Image size limit 32 MB.",
+      "instruction-3": "Maximum size - 5000x5000 pixels; There should be no more than 16 files at time.",
+      "instruction-4": "Allowed photo types: png, jpeg, jpg, gif;",
+      "instruction-5": "Automatic file deletion after 90 days.",
+      "dropzone": "Drag and drop images here, or click to select files",
+      "descr-ph": "Description (not nassesary)",
+      "password-l": "Password protection",
+      "password-ph": "Password"
+
+    }
+  }
+  
