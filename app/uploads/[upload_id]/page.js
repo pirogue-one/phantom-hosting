@@ -1,16 +1,37 @@
-import ImageGallery from "../../components/ImageGallery"
+'use client';
 
-async function getUploadData(upload_id) {
-  const res = await fetch(`${process.env.API_URL}/get_image_ids/${upload_id}`)
-  if (!res.ok) {
-    throw new Error("Failed to fetch upload data")
+import { useState, useEffect } from 'react';
+import ImageGallery from '../../components/ImageGallery';
+
+export default function UploadPage({ params }) {
+  const { upload_id } = params;
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch('/data.json');
+        if (!res.ok) {
+          throw new Error('Failed to fetch upload data');
+        }
+        const result = await res.json();
+        setData(result);
+      } catch (err) {
+        setError(err.message);
+      }
+    }
+
+    fetchData();
+  }, [upload_id]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
   }
-  return res.json()
-}
 
-export default async function UploadPage({ params }) {
-  const { upload_id } = params
-  const data = await getUploadData(upload_id)
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -18,9 +39,14 @@ export default async function UploadPage({ params }) {
       <ImageGallery imageIds={data.image_ids} />
       <div className="mt-8">
         <h2 className="text-2xl font-bold mb-4">Description</h2>
-        <textarea value={data.description} readOnly className="w-full p-2 border rounded" rows="4" />
+        <textarea
+          value={data.description}
+          readOnly
+          className="w-full p-2 border rounded"
+          rows="4"
+        />
       </div>
     </div>
-  )
+  );
 }
 

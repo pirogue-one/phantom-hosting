@@ -10,7 +10,8 @@ export default function ImageGallery({ imageIds }) {
     <div>
       <div className="mb-4">
         <Image
-          src={`${process.env.NEXT_PUBLIC_API_URL}/get_image/${selectedImage}.jpg`}
+          // src={`${process.env.NEXT_PUBLIC_API_URL}/get_image/${selectedImage}.jpg`}
+          src={`/${selectedImage}.jpg`}
           alt="Selected image"
           width={800}
           height={600}
@@ -21,7 +22,8 @@ export default function ImageGallery({ imageIds }) {
         {imageIds.map((id) => (
           <Image
             key={id}
-            src={`${process.env.NEXT_PUBLIC_API_URL}/get_image/${id}.jpg`}
+            // src={`${process.env.NEXT_PUBLIC_API_URL}/get_image/${id}.jpg`}
+            src={`/${id}.jpg`}
             alt={`Thumbnail ${id}`}
             width={150}
             height={150}
