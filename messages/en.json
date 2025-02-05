@@ -1,35 +1,39 @@
 {
-    "HomePage": {
-      "subtitle": "Anonymous photo hosting with automatic metadata cleaning"
-    },
-
-    "UploadForm": {
-      "instruction-1": "Upload images by simply dragging and dropping them anywhere in the window right now.",
-      "instruction-2": "Image size limit 32 MB.",
-      "instruction-3": "Maximum size - 5000x5000 pixels; There should be no more than 16 files at time.",
-      "instruction-4": "Allowed photo types: png, jpeg, jpg, gif;",
-      "instruction-5": "Automatic file deletion after 90 days.",
-      "dropzone": "Drag and drop images here, or click to select files",
-      "descr-ph": "Description (not nassesary)",
-      "password-l": "Password protection",
-      "password-ph": "Password",
-      "views-to-delete-l": "Delete after N views",
-      "views-to-delete-ph": "number of views",
-      "days-to-delete-l": "Delete after N days",
-      "days-to-delete-ph": "maximum 90 days",
-      "size-pl":"Change image size",
-      "width":"width",
-      "height":"height",
-      "album-pl":"Сombine all images into one post",
-      "upl-btn":"Upload"
-    },
-
-    "Footer":{
-      
-    },
-
-    "FeedbackForm":{
-      
-    }
+  "HomePage": {
+    "subtitle": "Anonymous photo hosting with automatic metadata cleaning"
+  },
+  "UploadForm": {
+    "instruction-1": "Upload images by simply dragging and dropping them anywhere in the window right now.",
+    "instruction-2": "Image size limit 32 MB.",
+    "instruction-3": "Maximum size - 5000x5000 pixels; There should be no more than 16 files at time.",
+    "instruction-4": "Allowed photo types: png, jpeg, jpg, gif;",
+    "instruction-5": "Automatic file deletion after 90 days.",
+    "dropzone": "Drag and drop images here, or click to select files",
+    "descr-ph": "Description (not nassesary)",
+    "password-l": "Password protection",
+    "password-ph": "Password",
+    "views-to-delete-l": "Delete after N views",
+    "views-to-delete-ph": "number of views",
+    "days-to-delete-l": "Delete after N days",
+    "days-to-delete-ph": "maximum 90 days",
+    "size-pl": "Change image size",
+    "width": "width",
+    "height": "height",
+    "album-pl": "Сombine all images into one post",
+    "upl-btn": "Upload"
+  },
+  "Footer": {
+    "administration": "The resource administration is not responsible for the content of files",
+    "contacts-footer": "Contacts for communication:",
+    "footer-link": "view",
+    "footer-text-down": "2024, All rights reserved"
+  },
+  "FeedbackForm": {
+    "feedback": "Feedback",
+    "feedback-form": "Fill out the form if you want to send a message",
+    "feedback-name": "Name",
+    "feedback-email": "Email",
+    "feedback-description": "Message",
+    "feedback-button": "Send"
   }
-  
+}
