@@ -85,6 +85,8 @@ html, body {
   }
 }
 
+/* ------------------------------------------ */
+
 a {
   text-decoration: none;
 }
@@ -152,4 +154,6 @@ header.header {
   margin-inline: auto;
   display: block;
 }
+
+/* FOOTER COMPONENT */
 
