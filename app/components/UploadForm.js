@@ -20,10 +20,10 @@ export default function UploadForm() {
   })
   const [values, setValues] = useState({
     password: "",
-    views: 1,
-    days: 1,
-    width: 800,
-    height: 600,
+    views: "",
+    days: "",
+    width: "",
+    height: "",
   })
 
   const handleOptionChange = (option) => {
@@ -98,53 +98,54 @@ export default function UploadForm() {
           )}
         </OptionCheckbox>
         <OptionCheckbox
-          label="Delete after N views"
+          label={t('days-to-delete-l')}
           checked={options.deleteAfterViews}
           onChange={() => handleOptionChange("deleteAfterViews")}
         >
           {options.deleteAfterViews && (
-            <NumericInput value={values.views} onChange={(value) => handleValueChange("views", value)} min={1} />
+            <NumericInput placeholder={t('days-to-delete-ph')} value={values.views} onChange={(value) => handleValueChange("views", value)} min={1} />
           )}
         </OptionCheckbox>
         <OptionCheckbox
-          label="Delete after N days"
+          label={t('views-to-delete-l')}
           checked={options.deleteAfterDays}
           onChange={() => handleOptionChange("deleteAfterDays")}
         >
           {options.deleteAfterDays && (
-            <NumericInput value={values.days} onChange={(value) => handleValueChange("days", value)} min={1} />
+            <NumericInput placeholder={t('views-to-delete-ph')} value={values.days} onChange={(value) => handleValueChange("days", value)} min={1} />
           )}
         </OptionCheckbox>
         <OptionCheckbox
-          label="Change image size"
+          label={t('size-pl')}
           checked={options.changeImageSize}
           onChange={() => handleOptionChange("changeImageSize")}
         >
           {options.changeImageSize && (
             <div className="size-inputs flex gap-2">
               <NumericInput
+                placeholder={t('width')}
                 value={values.width}
                 onChange={(value) => handleValueChange("width", value)}
                 min={1}
-                placeholder="Width"
               />
               <NumericInput
+                placeholder={t('height')}
                 value={values.height}
                 onChange={(value) => handleValueChange("height", value)}
                 min={1}
-                placeholder="Height"
+
               />
             </div>
           )}
         </OptionCheckbox>
         <OptionCheckbox
-          label="Create album"
+          label={t('album-pl')}
           checked={options.createAlbum}
           onChange={() => handleOptionChange("createAlbum")}
         />
       </div>
       <button type="submit" className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-blue-600 upload-files-btn">
-        Upload
+      {t('upl-btn')}
       </button>
     </form>
   )

@@ -1,6 +1,6 @@
 {
     "HomePage": {
-      "title-subtitle": "Anonymous photo hosting with automatic metadata cleaning"
+      "subtitle": "Anonymous photo hosting with automatic metadata cleaning"
     },
 
     "UploadForm": {
@@ -12,8 +12,16 @@
       "dropzone": "Drag and drop images here, or click to select files",
       "descr-ph": "Description (not nassesary)",
       "password-l": "Password protection",
-      "password-ph": "Password"
-
+      "password-ph": "Password",
+      "views-to-delete-l": "Delete after N views",
+      "views-to-delete-ph": "number of views",
+      "days-to-delete-l": "Delete after N days",
+      "days-to-delete-ph": "maximum 90 days",
+      "size-pl":"Change image size",
+      "width":"width",
+      "height":"height",
+      "album-pl":"Сombine all images into one post",
+      "upl-btn":"Upload"
     }
   }
   
