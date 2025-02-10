@@ -64,7 +64,7 @@ export default function UploadForm() {
   const t = useTranslations('UploadForm');
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 border-2 rounded-lg p-6 border-gray-300 max-w-[998px]">
+    <form onSubmit={handleSubmit} className="space-y-6 border-2 rounded-lg p-6 border-gray-300 max-w-[880px]">
       <div className="instruction flex-col items-center">
         <p className="text-[14px] text-center">{t('instruction-1')}</p>
         <p className="text-[14px] text-center">{t('instruction-2')}</p>

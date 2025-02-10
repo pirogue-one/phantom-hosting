@@ -28,7 +28,7 @@ export default function FeedbackForm() {
             <textarea rows={4} id="description"
             />
           </div>
-          <button className='feedback-btn'>{t('feedback-button')}</button>
+          <button className='bg-blue-500 text-white px-10 py-2 rounded hover:bg-blue-600 feedback-btn'>{t('feedback-button')}</button>
         </form>
       </div>
     </div>

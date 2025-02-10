@@ -238,13 +238,7 @@ header.header {
 }
 
 .feedback-btn {
-  background-color: #023EBC;
-  border-radius: 8px;
-  border: 1px solid #023EBC;
-  text-transform: uppercase;
-  padding: 8px 15px;
   color: #FFFFFF;
-  font-size: 14px;
   cursor: pointer;
 }
 
@@ -264,7 +258,7 @@ header.header {
 textarea,
 input {
   resize: none;
-  border: 1px solid #000;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
   padding: 10px 0 10px 10px;
 }
