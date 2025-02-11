@@ -262,3 +262,47 @@ input {
   border-radius: 8px;
   padding: 10px 0 10px 10px;
 }
+
+@media (max-width: 600px) {
+  .image-settings div {
+    flex-basis: 100%;
+  }
+
+  .tor-icon {
+    left: 75%;
+  }
+
+  #langs {
+    transform: translateY(12px);
+  }
+}
+
+@media (max-width: 499px) {
+  .phantom-title {
+    font-size: 28px;
+    line-height: 30px;
+  }
+
+  .text-\[20px\],
+  .footer-text,
+  .footer-text-link {
+    font-size: 18px;
+  }
+
+  .text-\[14px\] {
+    font-size: 12px;
+  }
+
+  .footer,
+  header.header {
+    padding: 10px 16px;
+  }
+
+  .flex > span,
+  .py-2,
+  .border-2 > p {
+    font-size: 14px;
+  }
+
+
+}
