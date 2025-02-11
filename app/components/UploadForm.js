@@ -15,15 +15,12 @@ export default function UploadForm() {
     passwordProtection: false,
     deleteAfterViews: false,
     deleteAfterDays: false,
-    changeImageSize: false,
     createAlbum: false,
   })
   const [values, setValues] = useState({
     password: "",
-    views: "",
-    days: "",
-    width: "",
-    height: "",
+    max_views: "",
+    time_after_delete: "",
   })
 
   const handleOptionChange = (option) => {
@@ -42,15 +39,14 @@ export default function UploadForm() {
     images.forEach((image, index) => {
       formData.append(`image${index}`, image)
     })
-    Object.entries(options).forEach(([key, value]) => {
-      formData.append(key, value)
-    })
     Object.entries(values).forEach(([key, value]) => {
       formData.append(key, value)
     })
 
+    const path = options.createAlbum ? '/apialbum/create' : '/api/uploadfile';
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, {
         method: "POST",
         body: formData,
       })
@@ -103,7 +99,7 @@ export default function UploadForm() {
           onChange={() => handleOptionChange("deleteAfterViews")}
         >
           {options.deleteAfterViews && (
-            <NumericInput placeholder={t('days-to-delete-ph')} value={values.views} onChange={(value) => handleValueChange("views", value)} min={1} />
+            <NumericInput placeholder={t('days-to-delete-ph')} value={values.max_views} onChange={(value) => handleValueChange("views", value)} min={1} />
           )}
         </OptionCheckbox>
         <OptionCheckbox
@@ -112,30 +108,7 @@ export default function UploadForm() {
           onChange={() => handleOptionChange("deleteAfterDays")}
         >
           {options.deleteAfterDays && (
-            <NumericInput placeholder={t('views-to-delete-ph')} value={values.days} onChange={(value) => handleValueChange("days", value)} min={1} />
-          )}
-        </OptionCheckbox>
-        <OptionCheckbox
-          label={t('size-pl')}
-          checked={options.changeImageSize}
-          onChange={() => handleOptionChange("changeImageSize")}
-        >
-          {options.changeImageSize && (
-            <div className="size-inputs flex gap-2">
-              <NumericInput
-                placeholder={t('width')}
-                value={values.width}
-                onChange={(value) => handleValueChange("width", value)}
-                min={1}
-              />
-              <NumericInput
-                placeholder={t('height')}
-                value={values.height}
-                onChange={(value) => handleValueChange("height", value)}
-                min={1}
-
-              />
-            </div>
+            <NumericInput placeholder={t('views-to-delete-ph')} value={values.time_after_delete} onChange={(value) => handleValueChange("days", value)} min={1} />
           )}
         </OptionCheckbox>
         <OptionCheckbox
