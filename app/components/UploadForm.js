@@ -19,8 +19,8 @@ export default function UploadForm() {
   })
   const [values, setValues] = useState({
     password: "",
-    max_views: "",
-    time_after_delete: "",
+    max_views: '',
+    time_after_delete: '',
   })
 
   const handleOptionChange = (option) => {
@@ -36,14 +36,21 @@ export default function UploadForm() {
     e.preventDefault()
     const formData = new FormData()
     formData.append("description", description)
-    images.forEach((image, index) => {
-      formData.append(`image${index}`, image)
+    images.forEach((image) => {
+      formData.append(`file`, image)
     })
     Object.entries(values).forEach(([key, value]) => {
+      if (!value) {
+       return; 
+      }
+      if (key === 'time_after_delete') {
+        value = (value ?? 0) * 60 * 24;
+        console.log(value);
+      };
       formData.append(key, value)
     })
 
-    const path = options.createAlbum ? '/apialbum/create' : '/api/uploadfile';
+    const path = options.createAlbum ? '/api/album/create' : '/api/uploadfile';
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, {
@@ -94,21 +101,21 @@ export default function UploadForm() {
           )}
         </OptionCheckbox>
         <OptionCheckbox
-          label={t('days-to-delete-l')}
+          label={t('views-to-delete-l')}
           checked={options.deleteAfterViews}
           onChange={() => handleOptionChange("deleteAfterViews")}
         >
           {options.deleteAfterViews && (
-            <NumericInput placeholder={t('days-to-delete-ph')} value={values.max_views} onChange={(value) => handleValueChange("views", value)} min={1} />
+            <NumericInput placeholder={t('views-to-delete-ph')} value={values.max_views} onChange={(value) => handleValueChange('max_views', value)} min={1} />
           )}
         </OptionCheckbox>
         <OptionCheckbox
-          label={t('views-to-delete-l')}
+          label={t('days-to-delete-l')}
           checked={options.deleteAfterDays}
           onChange={() => handleOptionChange("deleteAfterDays")}
         >
           {options.deleteAfterDays && (
-            <NumericInput placeholder={t('views-to-delete-ph')} value={values.time_after_delete} onChange={(value) => handleValueChange("days", value)} min={1} />
+            <NumericInput placeholder={t('days-to-delete-ph')} value={values.time_after_delete} onChange={(value) => handleValueChange("time_after_delete", value)} min={1} />
           )}
         </OptionCheckbox>
         <OptionCheckbox
