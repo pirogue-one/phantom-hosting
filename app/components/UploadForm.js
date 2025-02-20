@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import ImageDropzone from "./ImageDropzone";
 import OptionCheckbox from "./OptionCheckbox";
 import NumericInput from "./NumericInput";
+import Success from "./Success"
 import { useTranslations } from 'next-intl';
 
 export default function UploadForm() {
@@ -16,12 +17,14 @@ export default function UploadForm() {
     deleteAfterViews: false,
     deleteAfterDays: false,
     createAlbum: false,
-  })
+  });
   const [values, setValues] = useState({
     password: "",
-    max_views: "",
-    time_after_delete: "",
+    max_views: '',
+    time_after_delete: '',
   })
+
+  const [result, setResult] = useState([])
 
   const handleOptionChange = (option) => {
     setOptions((prev) => ({ ...prev, [option]: !prev[option] }))
@@ -36,14 +39,24 @@ export default function UploadForm() {
     e.preventDefault()
     const formData = new FormData()
     formData.append("description", description)
-    images.forEach((image, index) => {
-      formData.append(`image${index}`, image)
+    images.forEach((image) => {
+      formData.append(`file`, image)
     })
     Object.entries(values).forEach(([key, value]) => {
+      if (!value) {
+       return; 
+      }
+      if (key === 'time_after_delete') {
+        value = (value ?? 0) * 60 * 24;
+      };
+      if (key === 'max_views'){
+        value++;
+      }
+      console.log("key: %s, value: %s",key, value);
       formData.append(key, value)
     })
 
-    const path = options.createAlbum ? '/apialbum/create' : '/api/uploadfile';
+    const path = options.createAlbum ? '/api/album/create' : '/api/uploadfile';
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${path}`, {
@@ -51,7 +64,7 @@ export default function UploadForm() {
         body: formData,
       })
       const data = await response.json()
-      router.push(`/success?ids=${data.ids.join(",")}`)
+      setResult(data.result)
     } catch (error) {
       router.push("/error")
     }
@@ -60,6 +73,8 @@ export default function UploadForm() {
   const t = useTranslations('UploadForm');
 
   return (
+     (result.length>0) ?
+      <Success result={result} password={values.password}/> :
     <form onSubmit={handleSubmit} className="space-y-6 border-2 rounded-lg p-6 border-gray-300 max-w-[880px]">
       <div className="instruction flex-col items-center">
         <p className="text-[14px] text-center">{t('instruction-1')}</p>
@@ -94,21 +109,21 @@ export default function UploadForm() {
           )}
         </OptionCheckbox>
         <OptionCheckbox
-          label={t('days-to-delete-l')}
+          label={t('views-to-delete-l')}
           checked={options.deleteAfterViews}
           onChange={() => handleOptionChange("deleteAfterViews")}
         >
           {options.deleteAfterViews && (
-            <NumericInput placeholder={t('days-to-delete-ph')} value={values.max_views} onChange={(value) => handleValueChange("views", value)} min={1} />
+            <NumericInput placeholder={t('views-to-delete-ph')} value={values.max_views} onChange={(value) => handleValueChange('max_views', value)} min={1} />
           )}
         </OptionCheckbox>
         <OptionCheckbox
-          label={t('views-to-delete-l')}
+          label={t('days-to-delete-l')}
           checked={options.deleteAfterDays}
           onChange={() => handleOptionChange("deleteAfterDays")}
         >
           {options.deleteAfterDays && (
-            <NumericInput placeholder={t('views-to-delete-ph')} value={values.time_after_delete} onChange={(value) => handleValueChange("days", value)} min={1} />
+            <NumericInput placeholder={t('days-to-delete-ph')} value={values.time_after_delete} onChange={(value) => handleValueChange("time_after_delete", value)} min={1} />
           )}
         </OptionCheckbox>
         <OptionCheckbox
