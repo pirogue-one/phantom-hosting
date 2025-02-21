@@ -44,15 +44,15 @@ export default function UploadForm() {
     })
     Object.entries(values).forEach(([key, value]) => {
       if (!value) {
-       return; 
+        return;
       }
       if (key === 'time_after_delete') {
         value = (value ?? 0) * 60 * 24;
       };
-      if (key === 'max_views'){
+      if (!options.createAlbum && key === 'max_views') {
         value++;
       }
-      console.log("key: %s, value: %s",key, value);
+      console.log("key: %s, value: %s", key, value);
       formData.append(key, value)
     })
 
@@ -64,7 +64,11 @@ export default function UploadForm() {
         body: formData,
       })
       const data = await response.json()
-      setResult(data.result)
+      if (options.createAlbum) {
+        setResult([{url: data.url}])
+      } else {
+        setResult(data.result)
+      }
     } catch (error) {
       router.push("/error")
     }
@@ -73,69 +77,69 @@ export default function UploadForm() {
   const t = useTranslations('UploadForm');
 
   return (
-     (result.length>0) ?
-      <Success result={result} password={values.password}/> :
-    <form onSubmit={handleSubmit} className="space-y-6 border-2 rounded-lg p-6 border-gray-300 max-w-[880px]">
-      <div className="instruction flex-col items-center">
-        <p className="text-[14px] text-center">{t('instruction-1')}</p>
-        <p className="text-[14px] text-center">{t('instruction-2')}</p>
-        <p className="text-[14px] text-center">{t('instruction-3')}</p>
-        <p className="text-[14px] text-center">{t('instruction-4')}</p>
-        <p className="text-[14px] text-center">{t('instruction-5')}</p>
+    (result.length > 0) ?
+      <Success result={result} password={values.password} isAlbum={options.createAlbum} /> :
+      <form onSubmit={handleSubmit} className="space-y-6 border-2 rounded-lg p-6 border-gray-300 max-w-[880px]">
+        <div className="instruction flex-col items-center">
+          <p className="text-[14px] text-center">{t('instruction-1')}</p>
+          <p className="text-[14px] text-center">{t('instruction-2')}</p>
+          <p className="text-[14px] text-center">{t('instruction-3')}</p>
+          <p className="text-[14px] text-center">{t('instruction-4')}</p>
+          <p className="text-[14px] text-center">{t('instruction-5')}</p>
 
-      </div>
-      <ImageDropzone images={images} setImages={setImages} />
-      <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder={t('descr-ph')}
-        className="w-full p-2 border-2 rounded-lg border-gray-300"
-        rows="2"
-      />
-      <div className="image-settings flex flex-wrap gap-x-10 gap-y-4">
-        <OptionCheckbox
-          label={t('password-l')}
-          checked={options.passwordProtection}
-          onChange={() => handleOptionChange("passwordProtection")}
-        >
-          {options.passwordProtection && (
-            <input
-              placeholder={t('password-ph')}
-              type="password"
-              value={values.password}
-              onChange={(e) => handleValueChange("password", e.target.value)}
-              className="ml-4 p-2 border rounded"
-            />
-          )}
-        </OptionCheckbox>
-        <OptionCheckbox
-          label={t('views-to-delete-l')}
-          checked={options.deleteAfterViews}
-          onChange={() => handleOptionChange("deleteAfterViews")}
-        >
-          {options.deleteAfterViews && (
-            <NumericInput placeholder={t('views-to-delete-ph')} value={values.max_views} onChange={(value) => handleValueChange('max_views', value)} min={1} />
-          )}
-        </OptionCheckbox>
-        <OptionCheckbox
-          label={t('days-to-delete-l')}
-          checked={options.deleteAfterDays}
-          onChange={() => handleOptionChange("deleteAfterDays")}
-        >
-          {options.deleteAfterDays && (
-            <NumericInput placeholder={t('days-to-delete-ph')} value={values.time_after_delete} onChange={(value) => handleValueChange("time_after_delete", value)} min={1} />
-          )}
-        </OptionCheckbox>
-        <OptionCheckbox
-          label={t('album-pl')}
-          checked={options.createAlbum}
-          onChange={() => handleOptionChange("createAlbum")}
+        </div>
+        <ImageDropzone images={images} setImages={setImages} />
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          placeholder={t('descr-ph')}
+          className="w-full p-2 border-2 rounded-lg border-gray-300"
+          rows="2"
         />
-      </div>
-      <button type="submit" className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-blue-600 upload-files-btn">
-      {t('upl-btn')}
-      </button>
-    </form>
+        <div className="image-settings flex flex-wrap gap-x-10 gap-y-4">
+          <OptionCheckbox
+            label={t('password-l')}
+            checked={options.passwordProtection}
+            onChange={() => handleOptionChange("passwordProtection")}
+          >
+            {options.passwordProtection && (
+              <input
+                placeholder={t('password-ph')}
+                type="password"
+                value={values.password}
+                onChange={(e) => handleValueChange("password", e.target.value)}
+                className="ml-4 p-2 border rounded"
+              />
+            )}
+          </OptionCheckbox>
+          <OptionCheckbox
+            label={t('views-to-delete-l')}
+            checked={options.deleteAfterViews}
+            onChange={() => handleOptionChange("deleteAfterViews")}
+          >
+            {options.deleteAfterViews && (
+              <NumericInput placeholder={t('views-to-delete-ph')} value={values.max_views} onChange={(value) => handleValueChange('max_views', value)} min={1} />
+            )}
+          </OptionCheckbox>
+          <OptionCheckbox
+            label={t('days-to-delete-l')}
+            checked={options.deleteAfterDays}
+            onChange={() => handleOptionChange("deleteAfterDays")}
+          >
+            {options.deleteAfterDays && (
+              <NumericInput placeholder={t('days-to-delete-ph')} value={values.time_after_delete} onChange={(value) => handleValueChange("time_after_delete", value)} min={1} />
+            )}
+          </OptionCheckbox>
+          <OptionCheckbox
+            label={t('album-pl')}
+            checked={options.createAlbum}
+            onChange={() => handleOptionChange("createAlbum")}
+          />
+        </div>
+        <button type="submit" className="bg-blue-500 text-white px-10 py-2 rounded hover:bg-blue-600 upload-files-btn">
+          {t('upl-btn')}
+        </button>
+      </form>
   )
 }
 

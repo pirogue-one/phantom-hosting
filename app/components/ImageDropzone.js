@@ -35,7 +35,7 @@ export default function ImageDropzone({ images, setImages }) {
             className={`border-2 border-dashed rounded-lg p-4 text-center cursor-pointer ${isDragActive ? "border-blue-500 bg-blue-50" : "border-gray-300"
                 }`}
         >
-            <input {...getInputProps()} />
+            <input {...getInputProps()} required />
             {images.length > 0 ? (
                 <div className="flex flex-wrap gap-4">
                     {images.map((file, index) => (
