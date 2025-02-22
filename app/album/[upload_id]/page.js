@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import ImageGallery from '../../components/ImageGallery';
 
-export default function UploadPage({ params }) {
+export default function AlbumPage({ params }) {
   const { upload_id } = params;
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);

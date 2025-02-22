@@ -4,15 +4,16 @@ import { useState } from "react"
 import Image from "next/image"
 
 export default function UploadLink({ id, password, isAlbum }) {
-  const [copied, setCopied] = useState(false)
-  const link = `${process.env.NEXT_PUBLIC_BASE_URL}/uploads/${id}`
-  const preview = `${process.env.NEXT_PUBLIC_API_URL}/api/get_file/${id}?password=${password}`
+  const [copied, setCopied] = useState(false);
+  const path = isAlbum ? 'album' :'picture';
+  const link = `${process.env.NEXT_PUBLIC_BASE_URL}/${path}/${id}`;
+  const preview = `${process.env.NEXT_PUBLIC_API_URL}/api/get_file/${id}?password=${password}`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(link)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
-  }
+  };
 
   return (
     <div className="flex items-center space-x-2 w-full">

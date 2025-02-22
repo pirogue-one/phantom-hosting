@@ -35,5 +35,11 @@
     "feedback-email": "Адрес электронной почты",
     "feedback-description": "Сообщение",
     "feedback-button": "Отправить"
+  },
+  "PicturePage": {
+    "send-btn": "Отправить",
+    "password-ph": "Пароль",
+    "description": "Описание",
+    "header": "Upload details"
   }
 }

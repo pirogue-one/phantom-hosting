@@ -35,5 +35,13 @@
     "feedback-email": "Email",
     "feedback-description": "Message",
     "feedback-button": "Send"
+  },
+
+  "PicturePage": {
+    "send-btn": "Send",
+    "password-ph": "Password",
+    "description": "Description",
+    "header": "Upload details"
+
   }
 }
