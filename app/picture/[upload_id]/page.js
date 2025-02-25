@@ -11,6 +11,7 @@ export default function PicturePage({ params }) {
   const [error, setError] = useState('');
   const [passwordProtection, setPasswordProtection] = useState(false);
   const [password, setPassword] = useState('');
+  const [showError, setShowError] = useState(false);
   const t = useTranslations('PicturePage');
 
   async function fetchData() {
@@ -19,7 +20,10 @@ export default function PicturePage({ params }) {
       const res = await fetch(url);
     
       if (res.status === 403) {
-        alert(t('wrongpassword'));
+        if (showError) {
+          alert(t('wrongpassword'));
+        }
+        setShowError(true);
         setPasswordProtection(true);
         return;
       }
