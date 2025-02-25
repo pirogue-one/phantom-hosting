@@ -11,13 +11,17 @@ export default function AlbumPage({ params }) {
   const [password, setPassword] = useState('');
   const [passwordProtection, setPasswordProtection] = useState(false);
   const t = useTranslations('PicturePage');
+  const [showError, setShowError] = useState(false);
 
   async function fetchData() {
     try {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/api/album/${upload_id}?password=${password}`;
       const res = await fetch(url);
       if (res.status === 403) {
-        alert(t('wrongpassword'));
+        if (showError) {
+          alert(t('wrongpassword'));
+        }
+        setShowError(true);
         setPasswordProtection(true);
         return;
       }
