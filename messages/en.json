@@ -41,7 +41,11 @@
     "send-btn": "Send",
     "password-ph": "Password",
     "description": "Description",
-    "header": "Upload details"
+    "header": "Upload details",
+    "error": "Error: ",
+    "loading": "Loading...",
+    "failed": "Image not found",
+    "wrongpassword": "Invalid password!"
 
   }
 }

@@ -19,13 +19,14 @@ export default function PicturePage({ params }) {
       const res = await fetch(url);
     
       if (res.status === 403) {
+        alert(t('wrongpassword'));
         setPasswordProtection(true);
         return;
       }
 
       if (!res.ok) {
         const result = await res.json();
-        throw new Error(result.details ?? 'Failed to fetch upload data');
+        throw new Error(result.details ?? t("failed"));
       }
       setPasswordProtection(false);
       setImageSrc(url);
@@ -40,17 +41,17 @@ export default function PicturePage({ params }) {
   }, []); 
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div>{t('error')}{error}</div>;
   }
 
   if (!imageSrc && !passwordProtection) {
-    return <div>Loading...</div>;
+    return <div>{t('loading')}</div>;
   }
 
   return (
     <>
       {passwordProtection ? (
-        <form
+        <form className='flex gap-4 w-fit'
           onSubmit={async (e) => {
             e.preventDefault();
             await fetchData();
@@ -61,7 +62,7 @@ export default function PicturePage({ params }) {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="ml-4 p-2 border rounded"
+            className="p-2 border rounded"
           />
           <button
             type="submit"
@@ -72,7 +73,6 @@ export default function PicturePage({ params }) {
         </form>
       ) : (
         <div>
-          <h1 className="text-3xl font-bold mb-8">{t('header')}</h1>
           <div className="mb-4">
             <Image
               src={imageSrc}
@@ -83,7 +83,7 @@ export default function PicturePage({ params }) {
             />
           </div>
           <div className="mt-8">
-            <h2 className="text-2xl font-bold mb-4">{t('description')}</h2>
+            <h2 className="text-xl font-bold mb-4 text-center">{t('description')}</h2>
             <textarea
               value={data?.description || ''}
               readOnly

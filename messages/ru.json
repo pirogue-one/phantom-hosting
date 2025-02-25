@@ -40,6 +40,10 @@
     "send-btn": "Отправить",
     "password-ph": "Пароль",
     "description": "Описание",
-    "header": "Upload details"
+    "header": "Upload details",
+    "error": "Ошибка: ",
+    "loading": "Идет загрузка...",
+    "failed": "Файлы не найдены",
+    "wrongpassword": "Неверный пароль!"
   }
 }

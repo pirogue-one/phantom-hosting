@@ -19,7 +19,7 @@ export default async function RootLayout({ children }) {
       <body className="flex flex-col min-h-screen">
         <NextIntlClientProvider messages={messages}>
           <Header />
-          <main className="flex-grow container mx-auto px-4 py-8">{children}</main>
+          <main className="flex-grow container mx-auto px-4 py-8 flex flex-col items-center">{children}</main>
           <Footer />
         </NextIntlClientProvider>
       </body>
